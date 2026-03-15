@@ -238,6 +238,9 @@ Icon?
 .~*
 *.bak
 
+# Maven wrapper binary
+.mvn/wrapper/maven-wrapper.jar
+
 # Java / Micronaut demo artifacts
 .codex-tmp/
 .demo-cache/
