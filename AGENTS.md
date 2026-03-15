@@ -18,7 +18,7 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 2. Java reads the file as plain text.
 3. Java calls a tiny embedded GraalPy script.
 4. GraalPy runs VADER sentiment scoring.
-5. The UI shows the uploaded text, the sentiment label and scores, and the raw JSON response.
+5. The UI shows the uploaded text, the sentiment label and scores, the raw JSON response, and a small sentiment emoji.
 6. A single clear button resets both the file input and the visible output.
 
 # What Is In Scope
@@ -53,6 +53,8 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Keep the GraalPy bridge obvious and easy to explain
 - Remove duplicate demo-only paths when the main upload flow already proves the point
 - Keep `pom.xml` lean and avoid unused starter-generated options
+- Small visual cues such as sentiment emoji are fine when they improve live readability with minimal code
+- If an emoji is used in the sentiment card, size it for back-of-room readability
 - Keep sample content original, short, readable aloud, and safe for a public conference setting
 
 # Key Files

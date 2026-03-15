@@ -14,6 +14,19 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;");
 }
 
+function sentimentEmoji(label) {
+  if (label === "positive") {
+    return "🙂";
+  }
+  if (label === "negative") {
+    return "☹️";
+  }
+  if (label === "neutral") {
+    return "😐";
+  }
+  return "⏳";
+}
+
 const uploadForm = document.getElementById("upload-form");
 const fileInput = document.getElementById("file-input");
 const reviewText = document.getElementById("review-text");
@@ -25,7 +38,7 @@ function resetResults() {
   sentimentJson.textContent = "The VADER output will appear here.";
   sentimentCard.className = "sentiment-card neutral";
   sentimentCard.innerHTML = `
-    <span class="label">Waiting</span>
+    <span class="label"><span class="emoji">${sentimentEmoji("waiting")}</span> Waiting</span>
     <strong>No analysis yet.</strong>
   `;
 }
@@ -37,7 +50,7 @@ function renderSentiment(result) {
   const label = result.sentiment.label.toLowerCase();
   sentimentCard.className = `sentiment-card ${label}`;
   sentimentCard.innerHTML = `
-    <span class="label">${escapeHtml(result.sentiment.label)}</span>
+    <span class="label"><span class="emoji">${sentimentEmoji(label)}</span> ${escapeHtml(result.sentiment.label)}</span>
     <strong>Compound score: ${result.sentiment.compound}</strong>
     <span>${escapeHtml(result.pythonMessage)}</span>
   `;
