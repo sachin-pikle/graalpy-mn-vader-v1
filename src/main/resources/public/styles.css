@@ -83,6 +83,12 @@ body {
     margin-top: 16px;
 }
 
+.form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+}
+
 .upload-box {
     flex: 1 1 320px;
     display: grid;
@@ -109,6 +115,12 @@ button {
     font: inherit;
     font-weight: 600;
     cursor: pointer;
+}
+
+.button-secondary {
+    background: rgba(19, 32, 43, 0.08);
+    color: var(--ink);
+    border: 1px solid rgba(19, 32, 43, 0.14);
 }
 
 .results-grid {

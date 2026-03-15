@@ -51,6 +51,7 @@ Start with the smallest end-to-end demo that still proves the session point:
 3. The user uploads a text-based product review file.
 4. GraalPy runs VADER sentiment analysis on the uploaded text.
 5. The UI shows the uploaded review text and the resulting sentiment scores.
+6. The UI includes one obvious clear/reset action so the demo can return to a known state between runs.
 
 Do not add MarkItDown, local Hugging Face models, labeling, visualization, or multi-step orchestration until Phase 1 works reliably.
 Treat reproducible local startup and version alignment as part of Phase 1, not cleanup work for later.
@@ -124,6 +125,7 @@ The current milestone is complete when:
 
 - The app starts with `./mvnw mn:run`
 - A user can upload a text review file in the browser
+- A single clear button resets both the selected file input and the visible analysis output
 - Java sends that review into GraalPy with very little code
 - VADER returns a clear positive, neutral, or negative result
 - The code is simple enough to explain live in a couple of minutes

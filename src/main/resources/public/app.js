@@ -14,11 +14,24 @@ function escapeHtml(value) {
     .replaceAll(">", "&gt;");
 }
 
-function renderSentiment(result) {
-  const reviewText = document.getElementById("review-text");
-  const sentimentJson = document.getElementById("sentiment-json");
-  const sentimentCard = document.getElementById("sentiment-card");
+const uploadForm = document.getElementById("upload-form");
+const fileInput = document.getElementById("file-input");
+const reviewText = document.getElementById("review-text");
+const sentimentJson = document.getElementById("sentiment-json");
+const sentimentCard = document.getElementById("sentiment-card");
+const helloMessage = document.getElementById("hello-message");
 
+function resetResults() {
+  reviewText.textContent = "Upload a file to see its decoded review text here.";
+  sentimentJson.textContent = "The VADER output will appear here.";
+  sentimentCard.className = "sentiment-card neutral";
+  sentimentCard.innerHTML = `
+    <span class="label">Waiting</span>
+    <strong>No analysis yet.</strong>
+  `;
+}
+
+function renderSentiment(result) {
   reviewText.textContent = result.reviewText || "";
   sentimentJson.textContent = JSON.stringify(result, null, 2);
 
@@ -33,13 +46,12 @@ function renderSentiment(result) {
 
 async function loadHello() {
   const data = await fetchJson("/api/hello");
-  document.getElementById("hello-message").textContent = data.message;
+  helloMessage.textContent = data.message;
 }
 
-document.getElementById("upload-form").addEventListener("submit", async (event) => {
+uploadForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
-  const fileInput = document.getElementById("file-input");
   if (!fileInput.files || fileInput.files.length === 0) {
     alert("Choose a review file first.");
     return;
@@ -59,6 +71,11 @@ document.getElementById("upload-form").addEventListener("submit", async (event) 
   }
 });
 
+document.getElementById("clear-button").addEventListener("click", () => {
+  uploadForm.reset();
+  resetResults();
+});
+
 loadHello().catch((error) => {
-  document.getElementById("hello-message").textContent = error.message;
+  helloMessage.textContent = error.message;
 });
