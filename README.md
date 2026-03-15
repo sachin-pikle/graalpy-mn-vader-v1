@@ -19,6 +19,18 @@ Open `http://localhost:8080`.
 
 The project compiles for Java 21 bytecode, pins the Micronaut platform to 4.10.9, and is currently validated locally with the `23-graal` runtime.
 
+## Native Image
+
+This repo has also been validated locally with Micronaut native image packaging:
+
+```bash
+sdk use java 23-graal
+./mvnw package -Dpackaging=native-image
+./target/micronautguide
+```
+
+The native executable is created in the `target/` directory as `micronautguide`.
+
 ## What It Does
 
 1. Lets you upload a text-based product review file.
@@ -36,3 +48,4 @@ The project compiles for Java 21 bytecode, pins the Micronaut platform to 4.10.9
 
 - The first build needs network access so Maven can resolve dependencies and GraalPy can install the VADER wheel.
 - The VADER dependency is pinned to `vaderSentiment==3.3.2` so the live demo stays reproducible.
+- Native image is a supported build path for this demo, not just a stretch experiment.

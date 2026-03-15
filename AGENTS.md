@@ -10,6 +10,7 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Preferred local runtime: `sdk use java 23-graal`
 - Python runtime line: GraalPy 24.x tooling
 - Micronaut platform parent is pinned to 4.10.9
+- Native image build and run have been validated locally with `./mvnw package -Dpackaging=native-image` and `./target/micronautguide`
 - Python package: `vaderSentiment==3.3.2`
 
 # Demo Flow
@@ -28,6 +29,7 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Minimal Java code and minimal Python code
 - Five or more clean sample files for stage use
 - Simple local execution on macOS Apple Silicon
+- A working native image build and run path
 
 # What Is Out Of Scope For This Version
 
@@ -35,7 +37,6 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Hugging Face local models
 - Summaries or labels beyond VADER sentiment
 - Charts or multi-step orchestration
-- GraalVM Native Image
 - GraalPy 25.x migration
 
 # Dependency Rules
@@ -76,9 +77,18 @@ sdk use java 23-graal
 ./mvnw mn:run
 ```
 
+Native image:
+
+```bash
+sdk use java 23-graal
+./mvnw package -Dpackaging=native-image
+./target/micronautguide
+```
+
 # Success Criteria
 
 - The app runs locally from Maven Wrapper
+- The app can also be built and run locally as a native executable
 - The audience can follow the Java -> GraalPy -> VADER story quickly
 - The code is small enough to explain in a few minutes
 - The browser flow works with the bundled sample files
