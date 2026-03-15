@@ -29,6 +29,22 @@ Use these sources as primary implementation references while shaping the first v
 - GraalPy demo examples: https://github.com/graalvm/graal-languages-demos/tree/main/graalpy
 - Micronaut GraalPy Maven guide: https://guides.micronaut.io/latest/micronaut-graalpy-maven-java.html
 
+# Current Delivery Plan
+
+Build the demo in small, verifiable phases instead of jumping straight to the full conference flow.
+
+## Phase 1: Minimal Working Story
+
+Start with the smallest end-to-end demo that still proves the session point:
+
+1. A Micronaut 4.10.x app runs locally with Maven Wrapper.
+2. Java calls a tiny embedded GraalPy program through a small, obvious integration layer.
+3. The user uploads a text-based product review file.
+4. GraalPy runs VADER sentiment analysis on the uploaded text.
+5. The UI shows the uploaded review text and the resulting sentiment scores.
+
+Do not add MarkItDown, local Hugging Face models, labeling, visualization, or multi-step orchestration until Phase 1 works reliably.
+
 # Required Demo Flow
 
 Implement the app as a visible step-by-step pipeline:
@@ -39,6 +55,9 @@ Implement the app as a visible step-by-step pipeline:
 4. A local Hugging Face model generates a summary.
 5. A local Hugging Face model generates categories or labels.
 6. The app renders a visual summary of the results.
+
+For the current implementation, Phase 1 takes priority over the full pipeline above.
+Only move beyond Phase 1 after the minimal upload-plus-VADER path is working end to end.
 
 For every step:
 
@@ -88,3 +107,13 @@ The work is complete when:
 - Logs make progress visible throughout the demo
 - The Python-in-Java integration is easy to point to in code
 - The repository remains small and maintainable
+
+## Phase 1 Done
+
+The current milestone is complete when:
+
+- The app starts with `./mvnw mn:run`
+- A user can upload a text review file in the browser
+- Java sends that review into GraalPy with very little code
+- VADER returns a clear positive, neutral, or negative result
+- The code is simple enough to explain live in a couple of minutes

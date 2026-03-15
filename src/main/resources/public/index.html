@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GraalPy VADER Demo</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="shell">
+    <section class="hero card">
+        <p class="eyebrow">GIDS 2026</p>
+        <h1>Micronaut + GraalPy + VADER</h1>
+        <p class="lede">
+            Start small: upload a product review file, send it from Java into GraalPy, run VADER sentiment analysis,
+            and show the result immediately.
+        </p>
+        <p id="hello-message" class="hello-pill">Loading GraalPy hello message...</p>
+    </section>
+
+    <section class="card">
+        <div class="section-head">
+            <div>
+                <p class="eyebrow">Upload</p>
+                <h2>Analyze a review file</h2>
+            </div>
+        </div>
+        <form id="upload-form" class="upload-form">
+            <label class="upload-box">
+                <input id="file-input" name="file" type="file" accept=".txt,.md,.html,.htm" required>
+                <span>Select a text-based product review file</span>
+            </label>
+            <button type="submit">Run VADER in GraalPy</button>
+        </form>
+        <p class="note">Tip: plain text and markdown are the easiest first demo inputs.</p>
+    </section>
+
+    <section class="results-grid">
+        <article class="card">
+            <p class="eyebrow">Input</p>
+            <h2>Review Text</h2>
+            <pre id="review-text" class="code-block">Upload a file to see its decoded review text here.</pre>
+        </article>
+
+        <article class="card">
+            <p class="eyebrow">Output</p>
+            <h2>Sentiment Result</h2>
+            <div id="sentiment-card" class="sentiment-card neutral">
+                <span class="label">Waiting</span>
+                <strong>No analysis yet.</strong>
+            </div>
+            <pre id="sentiment-json" class="code-block">The VADER output will appear here.</pre>
+        </article>
+    </section>
+</main>
+<script src="/app.js" defer></script>
+</body>
+</html>
