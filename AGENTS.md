@@ -52,6 +52,7 @@ Start with the smallest end-to-end demo that still proves the session point:
 4. GraalPy runs VADER sentiment analysis on the uploaded text.
 5. The UI shows the uploaded review text and the resulting sentiment scores.
 6. The UI includes one obvious clear/reset action so the demo can return to a known state between runs.
+7. The repo includes a small curated sample library with clean, stage-friendly inputs from more than one domain.
 
 Do not add MarkItDown, local Hugging Face models, labeling, visualization, or multi-step orchestration until Phase 1 works reliably.
 Treat reproducible local startup and version alignment as part of Phase 1, not cleanup work for later.
@@ -82,7 +83,7 @@ For every step:
 - A working local demo application
 - A simple frontend that looks appealing to developers
 - A proper `.gitignore`
-- Three additional sample input files for the demo
+- At least five clean sample input files for the demo, with varied domains and sentiment profiles
 - Sensible logging so the app does not appear idle for long periods
 - A short README with setup, run steps, demo flow, and architecture notes
 
@@ -108,6 +109,7 @@ Treat GraalVM Native Image as a stretch goal, not a blocker for the first workin
 - If two options are equally valid, choose the one with less code and less setup friction
 - Do not hide important logic in generated files
 - Make changes in a way that remains easy to inspect in local git history
+- Keep sample content original, short, readable aloud, and safe for a public conference setting
 
 # Definition Of Done
 
@@ -126,6 +128,7 @@ The current milestone is complete when:
 - The app starts with `./mvnw mn:run`
 - A user can upload a text review file in the browser
 - A single clear button resets both the selected file input and the visible analysis output
+- The repo includes at least five demo-ready sample files that cover positive, negative, mixed, and neutral sentiment
 - Java sends that review into GraalPy with very little code
 - VADER returns a clear positive, neutral, or negative result
 - The code is simple enough to explain live in a couple of minutes
