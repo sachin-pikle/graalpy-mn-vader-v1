@@ -238,6 +238,23 @@ Icon?
 .~*
 *.bak
 
+# ------------------------
+# Java / JVM / build tools
+# ------------------------
+
+.gradle/
+out/
+.idea/
+*.iml
+.project
+.classpath
+.settings/
+.factorypath
+.vscode/
+dependency-reduced-pom.xml
+hs_err_pid*
+replay_pid*
+
 # Environment file variants (keep .env.example tracked)
 .env.local
 .env.*.local

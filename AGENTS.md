@@ -14,11 +14,12 @@ Build a small, conference-friendly demo app for my GIDS 2026 session, "Practical
 
 - Language: Java 25
 - Framework: Micronaut preferred; Spring Boot acceptable if it keeps the demo simpler
-- Build: Maven Wrapper required; add Gradle Wrapper only if it does not create significant extra maintenance
+- If Micronaut is used, prefer a GraalVM and GraalPy 24.x baseline for the first version; do not assume GraalVM 25.x compatibility without verifying the exact Micronaut 4.10.x combination
+- Build: Maven Wrapper required and use Maven for the first version; add Gradle Wrapper only later if it does not create significant extra maintenance
 - Runtime: local-only execution on macOS Apple Silicon
 - AI/data stack: GraalPy, MarkItDown, VADER sentiment, a small local Hugging Face model, and Plotly or Pygal for visualization
 - UX goal: polished enough for a live audience, but still simple
-- Code goal: minimal, maintainable, and easy to narrate
+- Code goal: minimal, modular, maintainable, and easy to narrate
 
 # Required Demo Flow
 
@@ -65,6 +66,7 @@ Treat GraalVM Native Image as a stretch goal, not a blocker for the first workin
 - Avoid unnecessary abstraction, configuration, and extra dependencies
 - Prefer local-only execution; avoid paid APIs and cloud dependencies
 - Keep the project small enough to explain during a live session
+- Keep the code modular: separate pipeline steps into small, easy-to-demo units with clear boundaries
 - If two options are equally valid, choose the one with less code and less setup friction
 - Do not hide important logic in generated files
 - Make changes in a way that remains easy to inspect in local git history
