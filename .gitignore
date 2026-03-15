@@ -238,6 +238,15 @@ Icon?
 .~*
 *.bak
 
+# Java / Micronaut demo artifacts
+.codex-tmp/
+.demo-cache/
+.djl.ai/
+.idea/
+.vscode/
+out/
+*.iml
+
 # ------------------------
 # Java / JVM / build tools
 # ------------------------
