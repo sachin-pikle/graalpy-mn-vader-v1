@@ -21,6 +21,14 @@ Build a small, conference-friendly demo app for my GIDS 2026 session, "Practical
 - UX goal: polished enough for a live audience, but still simple
 - Code goal: minimal, modular, maintainable, and easy to narrate
 
+# Reference Material
+
+Use these sources as primary implementation references while shaping the first version of the demo:
+
+- Python wheels for GraalPy: https://www.graalvm.org/python/wheels/
+- GraalPy demo examples: https://github.com/graalvm/graal-languages-demos/tree/main/graalpy
+- Micronaut GraalPy Maven guide: https://guides.micronaut.io/latest/micronaut-graalpy-maven-java.html
+
 # Required Demo Flow
 
 Implement the app as a visible step-by-step pipeline:
