@@ -31,6 +31,17 @@ sdk use java 23-graal
 
 The native executable is created in the `target/` directory as `micronautguide`.
 
+## Load Testing
+
+Load-testing utilities live in the separate `benchmarks/` folder so they do not interfere with the application code.
+
+```bash
+benchmarks/run-jvm-benchmark.sh
+benchmarks/run-native-benchmark.sh
+```
+
+Each run generates raw CSV/JSON files plus a simple HTML report with throughput, CPU, and memory charts.
+
 ## What It Does
 
 1. Lets you upload a text-based product review file.
@@ -43,9 +54,11 @@ The native executable is created in the `target/` directory as `micronautguide`.
 - `src/main/java/gids/graalpy/demo/GraalPySentimentService.java`
 - `src/main/java/gids/graalpy/demo/ReviewController.java`
 - `src/main/resources/python/sentiment_app.py`
+- `benchmarks/`
 
 ## Notes
 
 - The first build needs network access so Maven can resolve dependencies and GraalPy can install the VADER wheel.
 - The VADER dependency is pinned to `vaderSentiment==3.3.2` so the live demo stays reproducible.
 - Native image is a supported build path for this demo, not just a stretch experiment.
+- The benchmark harness uses only built-in/local tools already present on this machine: `python3`, `curl`, and `ps`.
