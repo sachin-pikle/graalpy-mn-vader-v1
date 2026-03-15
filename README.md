@@ -9,11 +9,14 @@ This project is the smallest useful starting point for the GIDS 2026 demo:
 ## Run
 
 ```bash
+sdk use java 23-graal
 ./mvnw test
 ./mvnw mn:run
 ```
 
 Open `http://localhost:8080`.
+
+The project compiles for Java 21 bytecode and is currently validated locally with the `23-graal` runtime.
 
 ## What It Does
 
@@ -32,4 +35,5 @@ Open `http://localhost:8080`.
 ## Notes
 
 - The first build needs network access so Maven can resolve dependencies and GraalPy can install the VADER wheel.
+- The VADER dependency is pinned to `vaderSentiment==3.3.2` so the live demo stays reproducible.
 - This is intentionally small. MarkItDown, multi-step orchestration, summaries, labels, and charts can be added later after this path is stable.

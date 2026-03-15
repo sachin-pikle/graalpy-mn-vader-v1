@@ -12,14 +12,23 @@ Build a small, conference-friendly demo app for my GIDS 2026 session, "Practical
 
 # Project Defaults
 
-- Language: Java 25
+- Language: Java 21 bytecode target for the demo Micronaut app
 - Framework: Micronaut preferred; Spring Boot acceptable if it keeps the demo simpler
 - If Micronaut is used, prefer a GraalVM and GraalPy 24.x baseline for the first version; do not assume GraalVM 25.x compatibility without verifying the exact Micronaut 4.10.x combination
+- Default local runtime for demo, test, and live rehearsal: `sdk use java 23-graal`
+- Avoid Java 25 for the first conference-ready build unless the exact Micronaut 4.10.x plus GraalPy combination has been re-verified end to end
 - Build: Maven Wrapper required and use Maven for the first version; add Gradle Wrapper only later if it does not create significant extra maintenance
 - Runtime: local-only execution on macOS Apple Silicon
 - AI/data stack: GraalPy, MarkItDown, VADER sentiment, a small local Hugging Face model, and Plotly or Pygal for visualization
 - UX goal: polished enough for a live audience, but still simple
 - Code goal: minimal, modular, maintainable, and easy to narrate
+
+# Version Guardrails
+
+- Compile and package the app for Java 21 unless there is a specific reason to raise the bytecode level
+- Use `23-graal` as the preferred SDKMAN runtime while validating the Micronaut + GraalPy demo locally
+- Keep GraalPy tooling on an explicit 24.x version line for now instead of drifting to 25.x
+- Pin Python dependencies to exact versions for reproducible demos; do not leave `vaderSentiment` as a floating range
 
 # Reference Material
 
@@ -44,6 +53,7 @@ Start with the smallest end-to-end demo that still proves the session point:
 5. The UI shows the uploaded review text and the resulting sentiment scores.
 
 Do not add MarkItDown, local Hugging Face models, labeling, visualization, or multi-step orchestration until Phase 1 works reliably.
+Treat reproducible local startup and version alignment as part of Phase 1, not cleanup work for later.
 
 # Required Demo Flow
 
