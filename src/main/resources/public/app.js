@@ -19,7 +19,6 @@ const fileInput = document.getElementById("file-input");
 const reviewText = document.getElementById("review-text");
 const sentimentJson = document.getElementById("sentiment-json");
 const sentimentCard = document.getElementById("sentiment-card");
-const helloMessage = document.getElementById("hello-message");
 
 function resetResults() {
   reviewText.textContent = "Upload a file to see its decoded review text here.";
@@ -42,11 +41,6 @@ function renderSentiment(result) {
     <strong>Compound score: ${result.sentiment.compound}</strong>
     <span>${escapeHtml(result.pythonMessage)}</span>
   `;
-}
-
-async function loadHello() {
-  const data = await fetchJson("/api/hello");
-  helloMessage.textContent = data.message;
 }
 
 uploadForm.addEventListener("submit", async (event) => {
@@ -74,8 +68,4 @@ uploadForm.addEventListener("submit", async (event) => {
 document.getElementById("clear-button").addEventListener("click", () => {
   uploadForm.reset();
   resetResults();
-});
-
-loadHello().catch((error) => {
-  helloMessage.textContent = error.message;
 });

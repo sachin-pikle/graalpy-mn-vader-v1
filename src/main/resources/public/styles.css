@@ -47,9 +47,10 @@ body {
 }
 
 .hero h1 {
-    font-size: clamp(2.2rem, 4vw, 4.2rem);
-    line-height: 1.02;
-    max-width: 12ch;
+    font-size: clamp(2rem, 3.2vw, 3.9rem);
+    line-height: 1;
+    max-width: none;
+    white-space: nowrap;
 }
 
 .eyebrow {
@@ -64,16 +65,6 @@ body {
 .lede,
 .note {
     color: var(--muted);
-}
-
-.hello-pill {
-    display: inline-flex;
-    margin-top: 16px;
-    padding: 10px 14px;
-    border-radius: 999px;
-    background: rgba(47, 126, 121, 0.12);
-    color: var(--accent-2);
-    font-family: "SFMono-Regular", Menlo, monospace;
 }
 
 .upload-form {
@@ -170,6 +161,12 @@ button {
 .sentiment-card.negative {
     background: rgba(180, 65, 52, 0.12);
     color: var(--negative);
+}
+
+@media (max-width: 900px) {
+    .hero h1 {
+        white-space: normal;
+    }
 }
 
 @media (min-width: 860px) {

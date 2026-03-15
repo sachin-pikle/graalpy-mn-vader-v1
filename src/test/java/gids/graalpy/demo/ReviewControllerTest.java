@@ -12,19 +12,12 @@ import org.junit.jupiter.api.Test;
 import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @MicronautTest
 final class ReviewControllerTest {
     @Inject
     @Client("/")
     HttpClient httpClient;
-
-    @Test
-    void helloEndpointReturnsGraalPyMessage() {
-        HelloView response = httpClient.toBlocking().retrieve("/api/hello", HelloView.class);
-        assertTrue(response.message().contains("GraalPy"));
-    }
 
     @Test
     void analyzeEndpointAcceptsAReviewUpload() {

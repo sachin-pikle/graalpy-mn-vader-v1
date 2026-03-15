@@ -1,10 +1,11 @@
-# GraalPy + Micronaut VADER Demo
+# GraalPy + Micronaut + VADER Sentiment Analysis Demo
 
-This project is the smallest useful starting point for the GIDS 2026 demo:
+This demo project consists of the following:
 
-- Micronaut 4.10.x provides the web app.
-- Java calls into a tiny embedded GraalPy program.
+- Micronaut 4.10.9 provides the web app.
+- Java calls a tiny embedded GraalPy program during review analysis.
 - GraalPy runs `vaderSentiment` over an uploaded product review file.
+- The Maven project and app name are aligned around `graalpy-mn-vader-v1`.
 
 ## Run
 
@@ -16,15 +17,14 @@ sdk use java 23-graal
 
 Open `http://localhost:8080`.
 
-The project compiles for Java 21 bytecode and is currently validated locally with the `23-graal` runtime.
+The project compiles for Java 21 bytecode, pins the Micronaut platform to 4.10.9, and is currently validated locally with the `23-graal` runtime.
 
 ## What It Does
 
-1. Shows a hello message produced by GraalPy.
-2. Lets you upload a text-based product review file.
-3. Decodes that file and sends the review text into GraalPy.
-4. Runs VADER sentiment analysis in Python.
-5. Returns the scores and a simple positive/neutral/negative label.
+1. Lets you upload a text-based product review file.
+2. Decodes that file in Java and sends the plain review text into GraalPy.
+3. Runs VADER sentiment analysis in Python.
+4. Returns the scores and a simple positive/neutral/negative label.
 
 ## Key Files
 
@@ -36,4 +36,3 @@ The project compiles for Java 21 bytecode and is currently validated locally wit
 
 - The first build needs network access so Maven can resolve dependencies and GraalPy can install the VADER wheel.
 - The VADER dependency is pinned to `vaderSentiment==3.3.2` so the live demo stays reproducible.
-- This is intentionally small. MarkItDown, multi-step orchestration, summaries, labels, and charts can be added later after this path is stable.

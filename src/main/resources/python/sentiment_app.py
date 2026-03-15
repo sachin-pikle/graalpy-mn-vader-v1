@@ -1,4 +1,3 @@
-import base64
 import json
 
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
@@ -6,12 +5,7 @@ from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 _ANALYZER = SentimentIntensityAnalyzer()
 
 
-def hello():
-    return "Hello from GraalPy inside Micronaut."
-
-
-def analyze_review_json(file_name: str, encoded_bytes: str) -> str:
-    review_text = base64.b64decode(encoded_bytes.encode("utf-8")).decode("utf-8", errors="ignore").strip()
+def analyze_review_json(file_name: str, review_text: str) -> str:
     scores = _ANALYZER.polarity_scores(review_text)
     label = "Neutral"
     if scores["compound"] >= 0.05:

@@ -15,12 +15,6 @@ final class GraalPySentimentServiceTest {
     GraalPySentimentService graalPySentimentService;
 
     @Test
-    void helloComesFromGraalPy() {
-        HelloView hello = graalPySentimentService.hello();
-        assertTrue(hello.message().contains("GraalPy"));
-    }
-
-    @Test
     void analyzesPositiveReview() {
         ReviewAnalysisView result = graalPySentimentService.analyze(
             "sample-review.txt",

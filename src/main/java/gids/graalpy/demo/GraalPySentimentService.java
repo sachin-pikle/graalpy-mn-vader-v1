@@ -5,7 +5,6 @@ import io.micronaut.json.JsonMapper;
 import jakarta.inject.Singleton;
 import org.graalvm.polyglot.Context;
 import org.graalvm.polyglot.Source;
-import org.graalvm.polyglot.Value;
 import org.graalvm.python.embedding.GraalPyResources;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +12,6 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Base64;
 
 @Singleton
 public final class GraalPySentimentService {
@@ -28,14 +26,10 @@ public final class GraalPySentimentService {
         this.pythonScript = loadScript(resourceLoader);
     }
 
-    public HelloView hello() {
-        return new HelloView(invokeString("hello"));
-    }
-
     public ReviewAnalysisView analyze(String fileName, byte[] fileBytes) {
-        String encoded = Base64.getEncoder().encodeToString(fileBytes);
+        String reviewText = new String(fileBytes, StandardCharsets.UTF_8).trim();
         LOG.info("Running GraalPy VADER analysis for {}", fileName);
-        String payload = invokeString("analyze_review_json", fileName, encoded);
+        String payload = runAnalysis(fileName, reviewText);
         try {
             return jsonMapper.readValue(payload.getBytes(StandardCharsets.UTF_8), ReviewAnalysisView.class);
         } catch (IOException e) {
@@ -43,14 +37,14 @@ public final class GraalPySentimentService {
         }
     }
 
-    private String invokeString(String functionName, Object... args) {
+    private String runAnalysis(String fileName, String reviewText) {
         try (Context context = GraalPyResources.contextBuilder().allowAllAccess(true).build()) {
             context.eval(Source.newBuilder("python", pythonScript, "sentiment_app.py").buildLiteral());
-            Value function = context.getBindings("python").getMember(functionName);
+            var function = context.getBindings("python").getMember("analyze_review_json");
             if (function == null || !function.canExecute()) {
-                throw new IllegalStateException("Python function " + functionName + " is not available.");
+                throw new IllegalStateException("Python analysis function is not available.");
             }
-            return function.execute(args).asString();
+            return function.execute(fileName, reviewText).asString();
         }
     }
 
