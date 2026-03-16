@@ -16,13 +16,13 @@ function escapeHtml(value) {
 
 function sentimentEmoji(label) {
   if (label === "positive") {
-    return "🙂";
+    return "🙂 ✅ 👍";
   }
   if (label === "negative") {
-    return "☹️";
+    return "☹️ ❎ 👎";
   }
   if (label === "neutral") {
-    return "😐";
+    return "😐 ⭕️ ⚠️";
   }
   return "⏳";
 }
