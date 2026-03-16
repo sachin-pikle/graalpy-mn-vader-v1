@@ -10,7 +10,7 @@ DURATION="${DURATION:-20}"
 APP_PORT="${APP_PORT:-8091}"
 URL="${URL:-http://127.0.0.1:$APP_PORT/api/reviews/analyze}"
 APP_LOG="$OUTPUT_DIR/app.log"
-BINARY="$ROOT/target/micronautguide"
+BINARY="$ROOT/target/graalpy-mn-vader-v1"
 
 if [[ ! -x "$BINARY" ]]; then
   echo "Native binary not found at $BINARY" >&2
