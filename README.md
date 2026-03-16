@@ -51,8 +51,8 @@ Each run generates raw CSV/JSON files plus a simple HTML report with throughput,
 
 ## Key Files
 
-- `src/main/java/gids/graalpy/demo/GraalPySentimentService.java`
-- `src/main/java/gids/graalpy/demo/ReviewController.java`
+- `src/main/java/graalpy/demo/GraalPySentimentService.java`
+- `src/main/java/graalpy/demo/ReviewController.java`
 - `src/main/resources/python/sentiment_app.py`
 - `benchmarks/`
 

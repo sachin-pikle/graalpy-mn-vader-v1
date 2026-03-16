@@ -1,5 +1,5 @@
 applicationType: default
-defaultPackage: gids.graalpy.demo
+defaultPackage: graalpy.demo
 testFramework: junit
 sourceLanguage: java
 buildTool: maven

@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>gids.graalpy.demo</groupId>
+  <groupId>graalpy.demo</groupId>
   <artifactId>graalpy-mn-vader-v1</artifactId>
   <version>0.1</version>
   <packaging>${packaging}</packaging>
@@ -20,7 +20,7 @@
     <micronaut.version>4.10.9</micronaut.version>
     <graalpy.plugin.version>24.2.1</graalpy.plugin.version>
     <micronaut.runtime>netty</micronaut.runtime>
-    <exec.mainClass>gids.graalpy.demo.Application</exec.mainClass>
+    <exec.mainClass>graalpy.demo.Application</exec.mainClass>
   </properties>
 
   <repositories>
@@ -126,7 +126,7 @@
             </path>
           </annotationProcessorPaths>
           <compilerArgs>
-            <arg>-Amicronaut.processing.group=gids.graalpy.demo</arg>
+            <arg>-Amicronaut.processing.group=graalpy.demo</arg>
             <arg>-Amicronaut.processing.module=graalpy-mn-vader-v1</arg>
           </compilerArgs>
         </configuration>

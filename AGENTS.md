@@ -65,8 +65,8 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 # Key Files
 
 - `pom.xml`
-- `src/main/java/gids/graalpy/demo/GraalPySentimentService.java`
-- `src/main/java/gids/graalpy/demo/ReviewController.java`
+- `src/main/java/graalpy/demo/GraalPySentimentService.java`
+- `src/main/java/graalpy/demo/ReviewController.java`
 - `src/main/resources/python/sentiment_app.py`
 - `src/main/resources/public/index.html`
 - `src/main/resources/public/styles.css`

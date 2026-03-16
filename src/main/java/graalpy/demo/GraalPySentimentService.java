@@ -1,4 +1,4 @@
-package gids.graalpy.demo;
+package graalpy.demo;
 
 import io.micronaut.core.io.ResourceLoader;
 import io.micronaut.json.JsonMapper;

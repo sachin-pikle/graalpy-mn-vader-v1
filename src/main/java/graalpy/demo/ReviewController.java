@@ -1,4 +1,4 @@
-package gids.graalpy.demo;
+package graalpy.demo;
 
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.MediaType;

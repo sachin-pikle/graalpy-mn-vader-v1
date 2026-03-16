@@ -1,4 +1,4 @@
-package gids.graalpy.demo;
+package graalpy.demo;
 
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
