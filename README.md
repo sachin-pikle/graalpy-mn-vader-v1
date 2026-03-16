@@ -26,10 +26,10 @@ This repo has also been validated locally with Micronaut native image packaging:
 ```bash
 sdk use java 23-graal
 ./mvnw package -Dpackaging=native-image
-./target/micronautguide
+./target/graalpy-mn-vader-v1
 ```
 
-The native executable is created in the `target/` directory as `micronautguide`.
+The native executable is created in the `target/` directory as `graalpy-mn-vader-v1`.
 
 ## Load Testing
 

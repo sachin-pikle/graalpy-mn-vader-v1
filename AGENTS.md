@@ -10,7 +10,7 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Preferred local runtime: `sdk use java 23-graal`
 - Python runtime line: GraalPy 24.x tooling
 - Micronaut platform parent is pinned to 4.10.9
-- Native image build and run have been validated locally with `./mvnw package -Dpackaging=native-image` and `./target/micronautguide`
+- Native image build and run have been validated locally with `./mvnw package -Dpackaging=native-image` and `./target/graalpy-mn-vader-v1`
 - Python package: `vaderSentiment==3.3.2`
 
 # Demo Flow
@@ -87,7 +87,7 @@ Native image:
 ```bash
 sdk use java 23-graal
 ./mvnw package -Dpackaging=native-image
-./target/micronautguide
+./target/graalpy-mn-vader-v1
 ```
 
 Benchmarks:
