@@ -5,11 +5,11 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 # Current App
 
 - Project name: `graalpy-mn-vader-v1`
-- Framework: Micronaut 4.10.9
+- Framework: Micronaut 4.10.10
 - Java target: 21
 - Preferred local runtime: `sdk use java 23-graal`
 - Python runtime line: GraalPy 24.x tooling
-- Micronaut platform parent is pinned to 4.10.9
+- Micronaut platform parent is pinned to 4.10.10
 - Native image build and run have been validated locally with `./mvnw package -Dpackaging=native-image` and `./target/graalpy-mn-vader-v1`
 - Python package: `vaderSentiment==3.3.2`
 
