@@ -17,6 +17,8 @@ sdk use java 23-graal
 
 Open `http://localhost:8080`.
 
+Use the sample data files in `samples/` to quickly test the upload flow during the demo.
+
 The project compiles for Java 21 bytecode, pins the Micronaut platform to 4.10.10, and is currently validated locally with the `23-graal` runtime.
 
 ## Native Image
