@@ -17,38 +17,38 @@
         </p>
     </section>
 
-    <section class="card">
-        <p class="eyebrow">Upload</p>
-        <h2>Analyze a review file</h2>
-        <form id="upload-form" class="upload-form">
-            <label class="upload-box">
-                <input id="file-input" name="file" type="file" accept=".txt,.md,.html,.htm" required>
-                <span>Select a text-based product review file</span>
-            </label>
-            <div class="form-actions">
-                <button type="submit">Run VADER in GraalPy</button>
-                <button id="clear-button" type="button" class="button-secondary">Clear</button>
-            </div>
-        </form>
-        <p class="note">Tip: plain text and markdown are the easiest first demo inputs.</p>
-    </section>
-
     <section class="results-grid">
         <article class="card">
-            <p class="eyebrow">Input</p>
+            <p class="eyebrow">Upload</p>
+            <h2>Analyze a review file</h2>
+            <form id="upload-form" class="upload-form">
+                <label class="upload-box">
+                    <input id="file-input" name="file" type="file" accept=".txt,.md,.html,.htm" required>
+                    <span>Select a text-based product review file</span>
+                </label>
+                <div class="form-actions">
+                    <button type="submit">Run VADER in GraalPy</button>
+                    <button id="clear-button" type="button" class="button-secondary">Clear</button>
+                </div>
+            </form>
+            <p class="note">Tip: plain text and markdown are the easiest first demo inputs.</p>
+        </article>
+
+        <article class="card">
+            <p class="eyebrow">Preview</p>
             <h2>Review Text</h2>
             <pre id="review-text" class="code-block">Upload a file to see its decoded review text here.</pre>
         </article>
+    </section>
 
-        <article class="card">
-            <p class="eyebrow">Output</p>
-            <h2>Sentiment Result</h2>
-            <div id="sentiment-card" class="sentiment-card neutral">
-                <span class="label">Waiting</span>
-                <strong>No analysis yet.</strong>
-            </div>
-            <pre id="sentiment-json" class="code-block">The VADER output will appear here.</pre>
-        </article>
+    <section class="card">
+        <p class="eyebrow">Output</p>
+        <h2>Sentiment Result</h2>
+        <div id="sentiment-card" class="sentiment-card neutral">
+            <span class="label">Waiting</span>
+            <strong>No analysis yet.</strong>
+        </div>
+        <pre id="sentiment-json" class="code-block">The VADER output will appear here.</pre>
     </section>
 </main>
 <script src="/app.js" defer></script>

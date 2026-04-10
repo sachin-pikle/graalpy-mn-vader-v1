@@ -16,10 +16,10 @@ function escapeHtml(value) {
 
 function sentimentEmoji(label) {
   if (label === "positive") {
-    return "🙂 ✅ 👍";
+    return "🙂👍";
   }
   if (label === "negative") {
-    return "☹️ ❎ 👎";
+    return "☹️👎";
   }
   if (label === "neutral") {
     return "😐 ⭕️ ⚠️";
@@ -38,7 +38,7 @@ function resetResults() {
   sentimentJson.textContent = "The VADER output will appear here.";
   sentimentCard.className = "sentiment-card neutral";
   sentimentCard.innerHTML = `
-    <span class="label"><span class="emoji">${sentimentEmoji("waiting")}</span> Waiting</span>
+    <span class="label">Waiting</span>
     <strong>No analysis yet.</strong>
   `;
 }
@@ -55,6 +55,21 @@ function renderSentiment(result) {
     <span>${escapeHtml(result.pythonMessage)}</span>
   `;
 }
+
+fileInput.addEventListener("change", async () => {
+  if (!fileInput.files || fileInput.files.length === 0) {
+    resetResults();
+    return;
+  }
+
+  resetResults();
+
+  try {
+    reviewText.textContent = await fileInput.files[0].text();
+  } catch {
+    reviewText.textContent = "Unable to preview the selected file.";
+  }
+});
 
 uploadForm.addEventListener("submit", async (event) => {
   event.preventDefault();
