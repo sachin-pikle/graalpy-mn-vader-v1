@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 OUTPUT_DIR="${OUTPUT_DIR:-$ROOT/benchmarks/results/native-$STAMP}"
-SAMPLE_FILE="${SAMPLE_FILE:-$ROOT/samples/sample-review.txt}"
+SAMPLE_FILE="${SAMPLE_FILE:-$ROOT/samples/product-coffee-grinder-positive.txt}"
 CONCURRENCY="${CONCURRENCY:-4}"
 DURATION="${DURATION:-20}"
 APP_PORT="${APP_PORT:-8091}"

@@ -47,7 +47,7 @@ Each run creates a timestamped folder under `benchmarks/results/` with:
 ## Notes
 
 - The benchmark targets `POST /api/reviews/analyze` with multipart file upload.
-- The default sample file is `samples/sample-review.txt`.
+- The default sample file is `samples/product-coffee-grinder-positive.txt`.
 - The wrapper scripts use port `8091` by default so they do not interfere with a normal demo app running on `8080`.
 - CPU and memory are sampled from the app process once per second.
 - The HTML report includes throughput, CPU, and RSS charts generated without extra Python packages.

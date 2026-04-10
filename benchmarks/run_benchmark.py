@@ -39,7 +39,7 @@ class ProcessSample:
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description="Run a small local benchmark against the review upload endpoint.")
     parser.add_argument("--url", default="http://127.0.0.1:8080/api/reviews/analyze")
-    parser.add_argument("--sample-file", default="samples/sample-review.txt")
+    parser.add_argument("--sample-file", default="samples/product-coffee-grinder-positive.txt")
     parser.add_argument("--concurrency", type=int, default=4)
     parser.add_argument("--duration", type=int, default=20, help="Benchmark duration in seconds.")
     parser.add_argument("--timeout", type=float, default=15.0, help="Per-request timeout in seconds.")

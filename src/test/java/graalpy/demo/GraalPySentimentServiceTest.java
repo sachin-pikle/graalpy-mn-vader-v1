@@ -17,13 +17,15 @@ final class GraalPySentimentServiceTest {
     @Test
     void analyzesPositiveReview() {
         ReviewAnalysisView result = graalPySentimentService.analyze(
-            "sample-review.txt",
+            "product-coffee-grinder-positive.txt",
             """
-                I love these headphones. The battery life is fantastic and the sound is rich and clear.
+                I bought this coffee grinder last week and I am really happy with it.
+                It feels solid, the grind is consistent, and setup took less than five minutes.
+                The lid is a little noisy, but overall it feels like a great value.
                 """.getBytes(StandardCharsets.UTF_8)
         );
 
-        assertEquals("sample-review.txt", result.fileName());
+        assertEquals("product-coffee-grinder-positive.txt", result.fileName());
         assertEquals("Positive", result.sentiment().label());
         assertTrue(result.sentiment().compound() > 0.05);
     }

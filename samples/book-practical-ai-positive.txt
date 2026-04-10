@@ -1,5 +1,3 @@
-This book explains practical AI concepts in a way that feels clear, grounded, and surprisingly approachable.
-The examples are small enough to follow, but still realistic enough to reuse in a real project.
-I especially appreciated the chapters on tradeoffs, testing, and deployment because they avoid hype and focus on useful decisions.
-The writing is sharp, the pacing is steady, and the diagrams support the text instead of distracting from it.
-I would happily recommend it to engineers who want a confident introduction without unnecessary complexity.
+This AI book is clear, practical, and easy to follow. 
+The examples feel real, the diagrams help, and the chapters on testing and deployment are especially useful. 
+I would gladly recommend it to other engineers.
