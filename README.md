@@ -11,7 +11,11 @@ This demo project consists of the following:
 
 ```bash
 sdk use java 23-graal
+```
+```bash
 ./mvnw test
+```
+```bash
 ./mvnw mn:run
 ```
 
@@ -27,7 +31,11 @@ This repo has also been validated locally with Micronaut native image packaging:
 
 ```bash
 sdk use java 23-graal
+```
+```bash
 ./mvnw package -Dpackaging=native-image
+```
+```bash
 ./target/graalpy-mn-vader-v1
 ```
 
@@ -39,6 +47,8 @@ Load-testing utilities live in the separate `benchmarks/` folder so they do not 
 
 ```bash
 benchmarks/run-jvm-benchmark.sh
+```
+```bash
 benchmarks/run-native-benchmark.sh
 ```
 
