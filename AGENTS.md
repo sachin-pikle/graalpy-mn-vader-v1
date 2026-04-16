@@ -5,11 +5,11 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 # Current App
 
 - Project name: `graalpy-mn-vader-v1`
-- Framework: Micronaut 4.10.10
-- Java target: 21
-- Preferred local runtime: `sdk use java 23-graal`
-- Python runtime line: GraalPy 24.x tooling
-- Micronaut platform parent is pinned to 4.10.10
+- Framework: Micronaut 4.10.11
+- Java target: 25
+- Preferred local runtime: `sdk use java 25.0.2-graal`
+- Python runtime line: GraalPy 25.0.2 tooling
+- Micronaut platform parent is pinned to 4.10.11
 - Native image build and run have been validated locally with `./mvnw package -Dpackaging=native-image` and `./target/graalpy-mn-vader-v1`
 - Python package: `vaderSentiment==3.3.2`
 
@@ -38,14 +38,14 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Hugging Face local models
 - Summaries or labels beyond VADER sentiment
 - Charts or multi-step orchestration inside the main app
-- GraalPy 25.x migration
 
 # Dependency Rules
 
-- Keep `io.micronaut.graal-languages:micronaut-graalpy`
+- Keep `org.graalvm.python:python` explicit because the app relies on the GraalPy runtime on the classpath
 - Keep `org.graalvm.python:python-embedding` explicit because the app uses the embedding API directly
+- Do not add `io.micronaut.graal-languages:micronaut-graalpy` back to `v1` unless the implementation returns to the Micronaut GraalPy annotation-based path
 - Do not add `org.graalvm.polyglot:python-community`
-- Do not move to GraalPy 25.x unless the runtime and dependency stack are upgraded together
+- Keep the GraalPy runtime, embedding API, and Maven plugin aligned on the same version line unless they are intentionally upgraded together
 - Pin Python packages to exact versions for demo reproducibility
 - Keep benchmark tooling dependency-light; prefer built-in system tools and Python standard library first
 
@@ -77,7 +77,7 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 # Run Commands
 
 ```bash
-sdk use java 23-graal
+sdk use java 25.0.2-graal
 ./mvnw test
 ./mvnw mn:run
 ```
@@ -85,7 +85,7 @@ sdk use java 23-graal
 Native image:
 
 ```bash
-sdk use java 23-graal
+sdk use java 25.0.2-graal
 ./mvnw package -Dpackaging=native-image
 ./target/graalpy-mn-vader-v1
 ```
@@ -111,4 +111,4 @@ benchmarks/run-native-benchmark.sh
 
 - Python wheels for GraalPy: https://www.graalvm.org/python/wheels/
 - GraalPy demo examples: https://github.com/graalvm/graal-languages-demos/tree/main/graalpy
-- Micronaut GraalPy Maven guide: https://guides.micronaut.io/latest/micronaut-graalpy-maven-java.html
+- GraalPy embedding build tools: https://www.graalvm.org/latest/reference-manual/python/Embedding-Build-Tools/

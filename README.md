@@ -2,7 +2,7 @@
 
 This demo project consists of the following:
 
-- Micronaut 4.10.10 provides the web app.
+- Micronaut 4.10.11 provides the web app.
 - Java calls a tiny embedded GraalPy program during review analysis.
 - GraalPy runs `vaderSentiment` over an uploaded product review file.
 - The Maven project and app name are aligned around `graalpy-mn-vader-v1`.

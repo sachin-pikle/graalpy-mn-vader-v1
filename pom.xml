@@ -48,6 +48,7 @@
     <dependency>
       <groupId>org.graalvm.python</groupId>
       <artifactId>python-embedding</artifactId>
+      <version>${graalpy.version}</version>
     </dependency>
     <dependency>
       <groupId>io.micronaut.serde</groupId>
