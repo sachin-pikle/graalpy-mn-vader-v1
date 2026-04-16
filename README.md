@@ -10,7 +10,8 @@ This demo project consists of the following:
 ## Run
 
 ```bash
-sdk use java 23-graal
+sdk install java 25.0.2-graal
+sdk use java 25.0.2-graal
 ```
 ```bash
 ./mvnw test
@@ -23,14 +24,12 @@ Open `http://localhost:8080`.
 
 Use the sample data files in `samples/` to quickly test the upload flow during the demo.
 
-The project compiles for Java 21 bytecode, pins the Micronaut platform to 4.10.10, and is currently validated locally with the `23-graal` runtime.
-
 ## Native Image
 
 This repo has also been validated locally with Micronaut native image packaging:
 
 ```bash
-sdk use java 23-graal
+sdk use java 25.0.2-graal
 ```
 ```bash
 ./mvnw package -Dpackaging=native-image

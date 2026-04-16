@@ -10,15 +10,15 @@
   <parent>
     <groupId>io.micronaut.platform</groupId>
     <artifactId>micronaut-parent</artifactId>
-    <version>4.10.10</version>
+    <version>4.10.11</version>
   </parent>
 
   <properties>
     <packaging>jar</packaging>
-    <jdk.version>21</jdk.version>
-    <release.version>21</release.version>
-    <micronaut.version>4.10.10</micronaut.version>
-    <graalpy.plugin.version>24.2.1</graalpy.plugin.version>
+    <jdk.version>25</jdk.version>
+    <release.version>25</release.version>
+    <micronaut.version>4.10.11</micronaut.version>
+    <graalpy.version>25.0.2</graalpy.version>
     <micronaut.runtime>netty</micronaut.runtime>
     <exec.mainClass>graalpy.demo.Application</exec.mainClass>
   </properties>
@@ -40,8 +40,10 @@
       <artifactId>micronaut-runtime</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.micronaut.graal-languages</groupId>
-      <artifactId>micronaut-graalpy</artifactId>
+      <groupId>org.graalvm.python</groupId>
+      <artifactId>python</artifactId>
+      <version>${graalpy.version}</version>
+      <type>pom</type>
     </dependency>
     <dependency>
       <groupId>org.graalvm.python</groupId>
@@ -85,7 +87,7 @@
       <plugin>
         <groupId>org.graalvm.python</groupId>
         <artifactId>graalpy-maven-plugin</artifactId>
-        <version>${graalpy.plugin.version}</version>
+        <version>${graalpy.version}</version>
         <configuration>
           <packages>
             <package>vaderSentiment==3.3.2</package>
