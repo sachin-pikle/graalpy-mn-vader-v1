@@ -11,6 +11,8 @@ This demo project consists of the following:
 
 ```bash
 sdk install java 25.0.2-graal
+```
+```bash
 sdk use java 25.0.2-graal
 ```
 ```bash
