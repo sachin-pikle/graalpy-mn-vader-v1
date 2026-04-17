@@ -44,7 +44,6 @@ function resetResults() {
 }
 
 function renderSentiment(result) {
-  reviewText.textContent = result.reviewText || "";
   sentimentJson.textContent = JSON.stringify(result, null, 2);
 
   const label = result.sentiment.label.toLowerCase();
@@ -52,7 +51,6 @@ function renderSentiment(result) {
   sentimentCard.innerHTML = `
     <span class="label"><span class="emoji">${sentimentEmoji(label)}</span> ${escapeHtml(result.sentiment.label)}</span>
     <strong>Compound score: ${result.sentiment.compound}</strong>
-    <span>${escapeHtml(result.pythonMessage)}</span>
   `;
 }
 

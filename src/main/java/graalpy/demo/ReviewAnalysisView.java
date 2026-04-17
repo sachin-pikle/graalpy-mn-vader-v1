@@ -5,8 +5,6 @@ import io.micronaut.serde.annotation.Serdeable;
 @Serdeable
 public record ReviewAnalysisView(
     String fileName,
-    String reviewText,
-    String pythonMessage,
     SentimentScores sentiment
 ) {
     @Serdeable

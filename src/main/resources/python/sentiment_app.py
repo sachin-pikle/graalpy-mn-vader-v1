@@ -16,8 +16,6 @@ def analyze_review_json(file_name: str, review_text: str) -> str:
     return json.dumps(
         {
             "fileName": file_name,
-            "reviewText": review_text,
-            "pythonMessage": "Analyzed in GraalPy using VADER.",
             "sentiment": {
                 "positive": round(scores["pos"], 3),
                 "neutral": round(scores["neu"], 3),
