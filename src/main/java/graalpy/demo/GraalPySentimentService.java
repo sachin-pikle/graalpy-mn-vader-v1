@@ -38,7 +38,11 @@ public final class GraalPySentimentService {
     }
 
     private String runAnalysis(String fileName, String reviewText) {
-        try (Context context = GraalPyResources.contextBuilder().allowAllAccess(true).build()) {
+        try (Context context = GraalPyResources.contextBuilder()
+                    .allowAllAccess(true)
+                    .allowExperimentalOptions(true)
+                    .option("engine.WarnVirtualThreadSupport", "false") // experimental: Suppress log warnings
+                    .build()) {
             context.eval(Source.newBuilder("python", pythonScript, "sentiment_app.py").buildLiteral());
             var function = context.getBindings("python").getMember("analyze_review_json");
             if (function == null || !function.canExecute()) {
