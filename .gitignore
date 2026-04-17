@@ -33,10 +33,6 @@ __pycache__/
 
 # Keep the wrapper bootstrap jar out of version control.
 # ./mvnw will download it on first use.
-# Benchmark outputs
-benchmarks/results/
-benchmarks/*.log
-
 .mvn/wrapper/maven-wrapper.jar
 
 # Unlike the stock Java template, do not ignore *.jar or *.zip:

@@ -30,7 +30,6 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Five or more clean sample files for stage use
 - Simple local execution on macOS Apple Silicon
 - A working native image build and run path
-- A separate benchmark harness that does not modify the application runtime code
 
 # What Is Out Of Scope For This Version
 
@@ -47,7 +46,6 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Do not add `org.graalvm.polyglot:python-community`
 - Keep the GraalPy runtime, embedding API, and Maven plugin aligned on the same version line unless they are intentionally upgraded together
 - Pin Python packages to exact versions for demo reproducibility
-- Keep benchmark tooling dependency-light; prefer built-in system tools and Python standard library first
 
 # Code Rules
 
@@ -59,8 +57,6 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - Small visual cues such as sentiment emoji are fine when they improve live readability with minimal code
 - If an emoji is used in the sentiment card, size it for back-of-room readability
 - Keep sample content original, short, readable aloud, and safe for a public conference setting
-- Keep load testing code in a separate folder or separate repo so it cannot clutter the demo path
-- Prefer a dedicated benchmark port so the benchmark harness does not interfere with the main demo app on 8080
 
 # Key Files
 
@@ -72,7 +68,6 @@ Keep this repo aligned with the current conference demo: a very small Micronaut 
 - `src/main/resources/public/styles.css`
 - `src/main/resources/public/app.js`
 - `samples/`
-- `benchmarks/`
 
 # Run Commands
 
@@ -90,13 +85,6 @@ sdk use java 25.0.2-graal
 ./target/graalpy-mn-vader-v1
 ```
 
-Benchmarks:
-
-```bash
-benchmarks/run-jvm-benchmark.sh
-benchmarks/run-native-benchmark.sh
-```
-
 # Success Criteria
 
 - The app runs locally from Maven Wrapper
@@ -104,7 +92,6 @@ benchmarks/run-native-benchmark.sh
 - The audience can follow the Java -> GraalPy -> VADER story quickly
 - The code is small enough to explain in a few minutes
 - The browser flow works with the bundled sample files
-- Benchmarking stays isolated from the application code path
 - The repo stays small and maintainable
 
 # References
