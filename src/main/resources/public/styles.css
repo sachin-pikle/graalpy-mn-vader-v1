@@ -46,6 +46,10 @@ body {
     margin: 0;
 }
 
+.hero {
+    position: relative;
+}
+
 .hero h1 {
     font-size: clamp(2rem, 3.2vw, 3.9rem);
     line-height: 1;
@@ -60,6 +64,17 @@ body {
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--accent);
+}
+
+.version-tag {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    color: var(--muted);
+    font-family: "SFMono-Regular", Menlo, monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
 }
 
 .lede,
