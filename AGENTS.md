@@ -35,6 +35,7 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 - Keep the script loaded from `classpath:python/sentiment_app.py` and evaluated from Java so the manual embedding path stays easy to explain.
 - Keep the function lookup explicit through Python bindings and guard that the returned member is executable.
 - Return JSON from Python and deserialize it into a small `@Serdeable` record on the Java side.
+- Keep the browser preview client-side after upload selection. Do not bloat the backend response by echoing the uploaded review text or extra status text when the UI already has that information.
 - Keep `pom.xml` lean. Keep explicit `org.graalvm.python:python`, `org.graalvm.python:python-embedding`, and the `graalpy-maven-plugin`.
 - Keep the `maven-shade-plugin` executable JAR configuration in `pom.xml`. Preserve merged service resources and the `Multi-Release: true` manifest entry so GraalPy and Truffle initialize correctly in the shaded jar.
 - Do not add `io.micronaut.graal-languages:micronaut-graalpy` unless the repo is intentionally migrating to the `v2` annotation-based approach.
