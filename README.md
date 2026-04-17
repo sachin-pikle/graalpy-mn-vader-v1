@@ -1,4 +1,4 @@
-# GraalPy + Micronaut + VADER Sentiment Demo
+# Demo: Sentiment Analysis with VADER, GraalPy and Micronaut
 
 <small>version: v1</small>
 
@@ -14,7 +14,6 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 - GraalPy runtime and embedding API on 25.0.2
 - Python dependency pinned to `vaderSentiment==3.3.2`
 - One static page with upload, preview, sentiment card, raw JSON, and a clear button
-- Five bundled sample input files under `samples/`
 
 ## Demo Flow
 
@@ -90,6 +89,21 @@ sdk use java 25.0.2-graal
 java -jar target/graalpy-mn-vader-v1-0.1.jar
 ```
 
+## Inspect The Jar In JD-GUI
+
+```bash
+java -jar jd-gui-1.6.6.jar
+```
+
+When JD-GUI opens, open `target/graalpy-mn-vader-v1-0.1.jar`.
+
+Look for these paths inside the jar:
+
+- `python/sentiment_app.py`
+- `org.graalvm.python.vfs/venv/`
+
+See the bundled Python module, embedded GraalPy virtual filesystem, and installed Python packages packaged into the executable jar.
+
 ## Sample Inputs
 
 - `samples/book-practical-ai-positive.txt`
@@ -100,15 +114,8 @@ java -jar target/graalpy-mn-vader-v1-0.1.jar
 
 ## Main Differences From v2
 
-- `v1` uses direct GraalPy embedding with `GraalPyResources` plus explicit `org.graalvm.python:python` and `org.graalvm.python:python-embedding`; `v2` uses `io.micronaut.graal-languages:micronaut-graalpy` and an injected `@GraalPyModule` interface.
-- `v1` runs on Micronaut 4.10.11, Java 25, and GraalPy 25.0.2; `v2` stays on Micronaut 4.10.10, Java 21, and GraalPy 24.2.1.
-- `v1` keeps the Python script at `src/main/resources/python/sentiment_app.py`; `v2` keeps it under `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`.
-- `v1` calls the Python function by manually evaluating the script and reading bindings from the context; `v2` calls an injected `SentimentModule` interface method.
-- `v1` does not need `src/main/resources/META-INF/native-image/proxy-config.json`; `v2` includes it because the annotation-based module path needs proxy metadata for native image.
-- `v1` currently ships five sample files; `v2` documents two bundled sample inputs.
-
-## Notes
-
-- The VADER dependency is pinned to `vaderSentiment==3.3.2` so the live demo stays reproducible.
-- Native image is a supported build path for this demo, not just a stretch experiment.
 - This repo is the simpler manual-embedding variant; `v2` is the Micronaut annotation-based GraalPy variant.
+- `v1` uses direct GraalPy embedding with `GraalPyResources` plus explicit `org.graalvm.python:python` and `org.graalvm.python:python-embedding`; `v2` uses `io.micronaut.graal-languages:micronaut-graalpy` and an injected `@GraalPyModule` interface.
+- `v1` runs on Micronaut 4.10.11, Java 25 bytecode, `sdk use java 25.0.2-graal`, and GraalPy 25.0.2; `v2` runs on Micronaut 4.10.10, Java 21 bytecode, `sdk use java 23-graal`, and GraalPy 24.2.1.
+- `v1` keeps the Python script at `src/main/resources/python/sentiment_app.py`; `v2` keeps it under `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`.
+- `v1` manually evaluates the script and reads the function from Python bindings; `v2` calls the Python function through the injected `SentimentModule` and keeps `src/main/resources/META-INF/native-image/proxy-config.json` aligned with that interface.
