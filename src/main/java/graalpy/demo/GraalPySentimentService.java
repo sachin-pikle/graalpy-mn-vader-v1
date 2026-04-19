@@ -16,7 +16,7 @@ import java.nio.charset.StandardCharsets;
 @Singleton
 public final class GraalPySentimentService {
     private static final Logger LOG = LoggerFactory.getLogger(GraalPySentimentService.class);
-    private static final String SCRIPT_PATH = "classpath:python/sentiment_app.py";
+    private static final String SCRIPT_PATH = "classpath:org.graalvm.python.vfs/src/sentiment_app.py";
 
     private final JsonMapper jsonMapper;
     private final String pythonScript;

@@ -1,2 +1,1 @@
-This AI book is clear, practical, and easy to follow. The examples feel real, the diagrams help, and the chapters on testing and deployment are especially useful. 
-I would gladly recommend it to other engineers.
+This AI book is clear, practical, and easy to follow. The examples feel real. I would gladly recommend it to other engineers.
