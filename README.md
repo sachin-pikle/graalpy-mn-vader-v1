@@ -34,7 +34,7 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 - `src/main/java/graalpy/demo/GraalPySentimentService.java`
 - `src/main/java/graalpy/demo/ReviewAnalysisView.java`
 - `src/main/resources/application.properties`
-- `src/main/resources/python/sentiment_app.py`
+- `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`
 - `src/main/resources/public/index.html`
 - `src/main/resources/public/app.js`
 - `src/main/resources/public/styles.css`
@@ -61,20 +61,6 @@ Open `http://localhost:8080`.
 
 The first build needs network access so Maven and GraalPy can resolve dependencies and install the pinned VADER package.
 
-## Native Image
-
-```bash
-sdk use java 25.0.2-graal
-```
-
-```bash
-./mvnw package -Dpackaging=native-image
-```
-
-```bash
-./target/graalpy-mn-vader-v1
-```
-
 ## Executable Jar
 
 ```bash
@@ -99,10 +85,24 @@ When JD-GUI opens, open `target/graalpy-mn-vader-v1-0.1.jar`.
 
 Look for these paths inside the jar:
 
-- `python/sentiment_app.py`
+- `org.graalvm.python.vfs/src/sentiment_app.py`
 - `org.graalvm.python.vfs/venv/`
 
 See the bundled Python module, embedded GraalPy virtual filesystem, and installed Python packages packaged into the executable jar.
+
+## Native Image
+
+```bash
+sdk use java 25.0.2-graal
+```
+
+```bash
+./mvnw package -Dpackaging=native-image
+```
+
+```bash
+./target/graalpy-mn-vader-v1
+```
 
 ## Sample Inputs
 
@@ -117,5 +117,5 @@ See the bundled Python module, embedded GraalPy virtual filesystem, and installe
 - This repo is the simpler manual-embedding variant; `v2` is the Micronaut annotation-based GraalPy variant.
 - `v1` uses direct GraalPy embedding with `GraalPyResources` plus explicit `org.graalvm.python:python` and `org.graalvm.python:python-embedding`; `v2` uses `io.micronaut.graal-languages:micronaut-graalpy` and an injected `@GraalPyModule` interface.
 - `v1` runs on Micronaut 4.10.11, Java 25 bytecode, `sdk use java 25.0.2-graal`, and GraalPy 25.0.2; `v2` runs on Micronaut 4.10.10, Java 21 bytecode, `sdk use java 23-graal`, and GraalPy 24.2.1.
-- `v1` keeps the Python script at `src/main/resources/python/sentiment_app.py`; `v2` keeps it under `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`.
+- `v1` keeps the Python script at `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`; `v2` keeps it under `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`.
 - `v1` manually evaluates the script and reads the function from Python bindings; `v2` calls the Python function through the injected `SentimentModule` and keeps `src/main/resources/META-INF/native-image/proxy-config.json` aligned with that interface.

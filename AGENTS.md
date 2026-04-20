@@ -20,7 +20,7 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 2. Accept a multipart upload at `/api/reviews/analyze`.
 3. Validate missing or empty uploads in the controller.
 4. Decode uploaded bytes to plain UTF-8 text in Java.
-5. Load the Python script from `classpath:python/sentiment_app.py` and create a GraalPy context with `GraalPyResources`.
+5. Load the Python script from `classpath:org.graalvm.python.vfs/src/sentiment_app.py` and create a GraalPy context with `GraalPyResources`.
 6. Keep the Python module under `src/main/resources/python/`.
 7. Return a small JSON string from Python and map it into a Java record.
 8. Render the preview, score, label, emoji, and raw JSON in the browser.
@@ -32,7 +32,7 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 - Prefer direct GraalPy embedding with `GraalPyResources.contextBuilder()` over the Micronaut `@GraalPyModule` pattern in this `v1` sample.
 - Keep the Java-to-Python boundary simple: pass plain decoded text plus small scalar inputs such as the file name.
 - Keep the Python side tiny and obvious. One module file and one exported function is ideal for this style of sample.
-- Keep the script loaded from `classpath:python/sentiment_app.py` and evaluated from Java so the manual embedding path stays easy to explain.
+- Keep the script loaded from `classpath:org.graalvm.python.vfs/src/sentiment_app.py` and evaluated from Java so the manual embedding path stays easy to explain.
 - Keep the function lookup explicit through Python bindings and guard that the returned member is executable.
 - Return JSON from Python and deserialize it into a small `@Serdeable` record on the Java side.
 - Keep the browser preview client-side after upload selection. Do not bloat the backend response by echoing the uploaded review text or extra status text when the UI already has that information.
@@ -54,7 +54,7 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 - `src/main/java/graalpy/demo/GraalPySentimentService.java`
 - `src/main/java/graalpy/demo/ReviewAnalysisView.java`
 - `src/main/resources/application.properties`
-- `src/main/resources/python/sentiment_app.py`
+- `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`
 - `src/main/resources/public/index.html`
 - `src/main/resources/public/app.js`
 - `src/main/resources/public/styles.css`
@@ -84,20 +84,6 @@ Open `http://localhost:8080`.
 
 The first build needs network access so Maven and GraalPy can resolve dependencies and install the pinned VADER package.
 
-Native image:
-
-```bash
-sdk use java 25.0.2-graal
-```
-
-```bash
-./mvnw package -Dpackaging=native-image
-```
-
-```bash
-./target/graalpy-mn-vader-v1
-```
-
 Executable jar:
 
 ```bash
@@ -122,10 +108,24 @@ When JD-GUI opens, open `target/graalpy-mn-vader-v1-0.1.jar`.
 
 Look for these paths inside the jar:
 
-- `python/sentiment_app.py`
+- `org.graalvm.python.vfs/src/sentiment_app.py`
 - `org.graalvm.python.vfs/venv/`
 
 See the bundled Python module, embedded GraalPy virtual filesystem, and installed Python packages packaged into the executable jar.
+
+Native image:
+
+```bash
+sdk use java 25.0.2-graal
+```
+
+```bash
+./mvnw package -Dpackaging=native-image
+```
+
+```bash
+./target/graalpy-mn-vader-v1
+```
 
 # Success Criteria
 
