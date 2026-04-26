@@ -51,6 +51,11 @@
       <version>${graalpy.version}</version>
     </dependency>
     <dependency>
+      <groupId>org.graalvm.tools</groupId>
+      <artifactId>dap-tool</artifactId>
+      <version>${graalpy.version}</version>
+    </dependency>
+    <dependency>
       <groupId>io.micronaut.serde</groupId>
       <artifactId>micronaut-serde-jackson</artifactId>
     </dependency>
