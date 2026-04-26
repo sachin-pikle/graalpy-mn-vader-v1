@@ -10,7 +10,6 @@ out/
 .project
 .settings/
 .factorypath
-.vscode/
 
 # Editor temp files
 *.swp
