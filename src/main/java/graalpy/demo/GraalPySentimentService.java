@@ -1,6 +1,6 @@
 package graalpy.demo;
 
-import io.micronaut.core.io.ResourceLoader;
+import io.micronaut.core.io.ResourceResolver;
 import io.micronaut.json.JsonMapper;
 import jakarta.inject.Singleton;
 import org.graalvm.polyglot.Context;
@@ -10,7 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.io.InputStream;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 @Singleton
@@ -19,11 +19,13 @@ public final class GraalPySentimentService {
     private static final String SCRIPT_PATH = "classpath:org.graalvm.python.vfs/src/sentiment_app.py";
 
     private final JsonMapper jsonMapper;
-    private final String pythonScript;
+    private final Source sentimentAppSource;
 
-    public GraalPySentimentService(JsonMapper jsonMapper, ResourceLoader resourceLoader) {
+    public GraalPySentimentService(JsonMapper jsonMapper, ResourceResolver resourceResolve) throws IOException{
         this.jsonMapper = jsonMapper;
-        this.pythonScript = loadScript(resourceLoader);
+        URL sentimentAppURL = resourceResolve.getResource(SCRIPT_PATH).get();
+        sentimentAppSource = Source.newBuilder("python", sentimentAppURL).build();
+
     }
 
     public ReviewAnalysisView analyze(String fileName, byte[] fileBytes) {
@@ -41,22 +43,18 @@ public final class GraalPySentimentService {
         try (Context context = GraalPyResources.contextBuilder()
                     .allowAllAccess(true)
                     .allowExperimentalOptions(true)
-                    .option("engine.WarnVirtualThreadSupport", "false") // experimental: Suppress log warnings
+                    // .option("engine.WarnVirtualThreadSupport", "false") // experimental: Suppress log warnings
+                    // The options below allow us to debug the Python code while running in Java
+                    .option("dap", "localhost:4711")
+                    .option("dap.Suspend", "true")
+                    .option("dap.WaitAttached", "true")
                     .build()) {
-            context.eval(Source.newBuilder("python", pythonScript, "sentiment_app.py").buildLiteral());
+            context.eval(sentimentAppSource);
             var function = context.getBindings("python").getMember("analyze_review_json");
             if (function == null || !function.canExecute()) {
                 throw new IllegalStateException("Python analysis function is not available.");
             }
             return function.execute(fileName, reviewText).asString();
-        }
-    }
-
-    private String loadScript(ResourceLoader resourceLoader) {
-        try (InputStream stream = resourceLoader.getResourceAsStream(SCRIPT_PATH).orElseThrow()) {
-            return new String(stream.readAllBytes(), StandardCharsets.UTF_8);
-        } catch (IOException e) {
-            throw new IllegalStateException("Unable to load Python script " + SCRIPT_PATH, e);
         }
     }
 }

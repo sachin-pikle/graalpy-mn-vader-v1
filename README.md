@@ -119,3 +119,11 @@ sdk use java 25.0.2-graal
 - `v1` runs on Micronaut 4.10.11, Java 25 bytecode, `sdk use java 25.0.2-graal`, and GraalPy 25.0.2; `v2` runs on Micronaut 4.10.10, Java 21 bytecode, `sdk use java 23-graal`, and GraalPy 24.2.1.
 - `v1` keeps the Python script at `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`; `v2` keeps it under `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`.
 - `v1` manually evaluates the script and reads the function from Python bindings; `v2` calls the Python function through the injected `SentimentModule` and keeps `src/main/resources/META-INF/native-image/proxy-config.json` aligned with that interface.
+
+## Appendix
+
+### VM Arguments
+
+```
+export MAVEN_OPTS="--enable-native-access=ALL-UNNAMED -Dsun.misc.unsafe.memory.access=allow"
+```
