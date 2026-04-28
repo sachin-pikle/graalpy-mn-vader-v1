@@ -21,25 +21,29 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 2. Accept a multipart upload at `/api/reviews/analyze`.
 3. Validate missing or empty uploads in the controller.
 4. Decode uploaded bytes to plain UTF-8 text in Java.
-5. Load the Python script from `classpath:org.graalvm.python.vfs/src/sentiment_app.py` and create a GraalPy context with `GraalPyResources`.
+5. Create the GraalPy context in `GraalPyContext` with `GraalPyResources`.
 6. Keep the Python module under `src/main/resources/org.graalvm.python.vfs/src/`.
-7. Return a small JSON string from Python and map it into a Java record.
-8. Render the preview, score, label, emoji, and raw JSON in the browser.
-9. Keep a single clear action that resets both the file input and the visible output.
-10. Keep the direct Java -> GraalPy script -> VADER path obvious in the code.
-11. Preserve the embedded Python DAP attach path for debugging the manual Java -> GraalPy boundary.
+7. Load and evaluate `classpath:org.graalvm.python.vfs/src/sentiment_app.py` from `GraalPySentimentService`.
+8. Return a small JSON string from Python and map it into a Java record.
+9. Render the preview, score, label, emoji, and raw JSON in the browser.
+10. Keep a single clear action that resets both the file input and the visible output.
+11. Keep the direct Java -> GraalPy script -> VADER path obvious in the code.
+12. Keep DAP off by default, but preserve the embedded Python DAP attach path for debugging.
 
 # Similar-Example Rules
 
 - Prefer direct GraalPy embedding with `GraalPyResources.contextBuilder()` over the Micronaut `@GraalPyModule` pattern in this `v1` sample.
+- Keep `GraalPyContext` generic: context construction, DAP options, `eval(Source)`, Python binding lookup, and shutdown only.
+- Keep `GraalPySentimentService` sentiment-specific: resource lookup, URL-backed `Source`, script evaluation, `analyze_review_json` lookup, function guard, function execution, and JSON mapping.
 - Keep the Java-to-Python boundary simple: pass plain decoded text plus small scalar inputs such as the file name.
 - Keep the Python side tiny and obvious. One module file and one exported function is ideal for this style of sample.
 - Keep the script loaded from `classpath:org.graalvm.python.vfs/src/sentiment_app.py` and evaluated from Java so the manual embedding path stays easy to explain.
 - Keep the function lookup explicit through Python bindings and guard that the returned member is executable.
 - Return JSON from Python and deserialize it into a small `@Serdeable` record on the Java side.
 - Keep the script as a URL-backed GraalVM `Source` so DAP can associate execution with the resource path.
-- Keep `org.graalvm.tools:dap-tool` aligned with `${graalpy.version}` when embedded Python debugging is enabled.
-- Keep the DAP endpoint simple and local: `dap=localhost:4711`, `dap.Suspend=true`, and `dap.WaitAttached=true`.
+- Keep `org.graalvm.tools:dap-tool` aligned with `${graalpy.version}`.
+- Keep `graalpy.dap.enabled=false` in `src/main/resources/application.properties` unless intentionally demonstrating Python debugging.
+- When DAP is enabled, keep the endpoint simple and local: `dap=localhost:4711`, `dap.Suspend=true`, and `dap.WaitAttached=true`.
 - Keep `.vscode/launch.json` available for the `GraalPy: Attach embedded` debug configuration.
 - Keep the browser preview client-side after upload selection. Do not bloat the backend response by echoing the uploaded review text or extra status text when the UI already has that information.
 - Keep `pom.xml` lean. Keep explicit `org.graalvm.python:python`, `org.graalvm.python:python-embedding`, and the `graalpy-maven-plugin`.
@@ -57,6 +61,7 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 - `pom.xml`
 - `src/main/java/graalpy/demo/Application.java`
 - `src/main/java/graalpy/demo/ReviewController.java`
+- `src/main/java/graalpy/demo/GraalPyContext.java`
 - `src/main/java/graalpy/demo/GraalPySentimentService.java`
 - `src/main/java/graalpy/demo/ReviewAnalysisView.java`
 - `src/main/resources/application.properties`
@@ -91,13 +96,35 @@ Open `http://localhost:8080`.
 
 The first build needs network access so Maven and GraalPy can resolve dependencies and install the pinned VADER package.
 
-Debug embedded Python:
+DAP off, normal app run:
+
+Keep this setting in `src/main/resources/application.properties`:
+
+```properties
+graalpy.dap.enabled=false
+```
 
 ```bash
 ./mvnw mn:run
 ```
 
-Open `http://localhost:8080`, upload a sample file, and attach with the VS Code `GraalPy: Attach embedded` configuration on `localhost:4711`.
+Open `http://localhost:8080`, upload a sample file, and confirm the result renders immediately.
+
+DAP on, debug embedded Python:
+
+Change `src/main/resources/application.properties` to:
+
+```properties
+graalpy.dap.enabled=true
+```
+
+Set a breakpoint in `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`, for example inside `analyze_review_json`.
+
+```bash
+./mvnw mn:run
+```
+
+Open `http://localhost:8080`, upload a sample file, and attach with the VS Code `GraalPy: Attach embedded` configuration on `localhost:4711`. The debugger should stop at breakpoints in `sentiment_app.py`.
 
 Executable jar:
 

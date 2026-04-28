@@ -21,8 +21,8 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 1. Upload a text-based review file from the browser.
 2. Micronaut receives the multipart upload at `/api/reviews/analyze`.
 3. Java decodes the upload bytes to UTF-8 text.
-4. `GraalPySentimentService` creates a GraalPy context with `GraalPyResources`.
-5. GraalPy loads `sentiment_app.py` from the embedded resource path and returns a JSON string.
+4. `GraalPyContext` creates the GraalPy context with `GraalPyResources`.
+5. `GraalPySentimentService` evaluates `sentiment_app.py` from the embedded resource path and calls `analyze_review_json`.
 6. Java deserializes that JSON into `ReviewAnalysisView`.
 7. The UI shows the review text, sentiment label, compound score, raw JSON, and an emoji.
 8. Clear resets both the file input and the visible output.
@@ -32,6 +32,7 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 - `pom.xml`
 - `src/main/java/graalpy/demo/Application.java`
 - `src/main/java/graalpy/demo/ReviewController.java`
+- `src/main/java/graalpy/demo/GraalPyContext.java`
 - `src/main/java/graalpy/demo/GraalPySentimentService.java`
 - `src/main/java/graalpy/demo/ReviewAnalysisView.java`
 - `src/main/resources/application.properties`
@@ -65,13 +66,39 @@ The first build needs network access so Maven and GraalPy can resolve dependenci
 
 ## Debug Embedded Python
 
-The app includes `org.graalvm.tools:dap-tool` and configures the GraalPy context to open a DAP endpoint on `localhost:4711` when the sentiment analysis runs.
+The app includes `org.graalvm.tools:dap-tool`, but DAP is off by default so the upload flow runs normally without waiting for a debugger.
+
+### DAP Off
+
+Keep this setting in `src/main/resources/application.properties`:
+
+```properties
+graalpy.dap.enabled=false
+```
 
 ```bash
 ./mvnw mn:run
 ```
 
-Open `http://localhost:8080`, select a sample text file, and submit it. The request will wait when the GraalPy context starts. In VS Code, use the `GraalPy: Attach embedded` launch configuration to attach to `localhost:4711`, then debug `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`.
+Open `http://localhost:8080`, select one of the files under `samples/`, and submit it. The result should render immediately.
+
+### DAP On
+
+Change `src/main/resources/application.properties` to:
+
+```properties
+graalpy.dap.enabled=true
+```
+
+Set a breakpoint in `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`, for example inside `analyze_review_json`.
+
+Start the app:
+
+```bash
+./mvnw mn:run
+```
+
+Open `http://localhost:8080`, select a sample text file, and submit it. The request will wait when the GraalPy context starts. In VS Code, run the `GraalPy: Attach embedded` launch configuration to attach to `localhost:4711`. Once attached, the debugger can stop at breakpoints in `sentiment_app.py`.
 
 ## Executable Jar
 
