@@ -12,6 +12,7 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 - Java 25 bytecode
 - Preferred local runtime: `sdk use java 25.0.2-graal`
 - GraalPy runtime and embedding API on 25.0.2
+- GraalVM DAP tool on 25.0.2 for embedded Python debugging
 - Python dependency pinned to `vaderSentiment==3.3.2`
 - One static page with upload, preview, sentiment card, raw JSON, and a clear button
 
@@ -21,7 +22,7 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 2. Micronaut receives the multipart upload at `/api/reviews/analyze`.
 3. Java decodes the upload bytes to UTF-8 text.
 4. `GraalPySentimentService` creates a GraalPy context with `GraalPyResources`.
-5. GraalPy runs `sentiment_app.py` and returns a JSON string.
+5. GraalPy loads `sentiment_app.py` from the embedded resource path and returns a JSON string.
 6. Java deserializes that JSON into `ReviewAnalysisView`.
 7. The UI shows the review text, sentiment label, compound score, raw JSON, and an emoji.
 8. Clear resets both the file input and the visible output.
@@ -38,6 +39,7 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 - `src/main/resources/public/index.html`
 - `src/main/resources/public/app.js`
 - `src/main/resources/public/styles.css`
+- `.vscode/launch.json`
 
 ## Run Locally
 
@@ -60,6 +62,16 @@ sdk use java 25.0.2-graal
 Open `http://localhost:8080`.
 
 The first build needs network access so Maven and GraalPy can resolve dependencies and install the pinned VADER package.
+
+## Debug Embedded Python
+
+The app includes `org.graalvm.tools:dap-tool` and configures the GraalPy context to open a DAP endpoint on `localhost:4711` when the sentiment analysis runs.
+
+```bash
+./mvnw mn:run
+```
+
+Open `http://localhost:8080`, select a sample text file, and submit it. The request will wait when the GraalPy context starts. In VS Code, use the `GraalPy: Attach embedded` launch configuration to attach to `localhost:4711`, then debug `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`.
 
 ## Executable Jar
 

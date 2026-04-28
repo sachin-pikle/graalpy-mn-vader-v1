@@ -10,6 +10,7 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 - Java target: 25
 - Preferred local runtime: `sdk use java 25.0.2-graal`
 - GraalPy runtime and embedding API: 25.0.2
+- GraalVM DAP tool: 25.0.2
 - Python package: `vaderSentiment==3.3.2`
 - UI shape: one static page with upload, preview, sentiment card, raw JSON, and a clear button
 - Bundled sample inputs: five short text files under `samples/`
@@ -21,11 +22,12 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 3. Validate missing or empty uploads in the controller.
 4. Decode uploaded bytes to plain UTF-8 text in Java.
 5. Load the Python script from `classpath:org.graalvm.python.vfs/src/sentiment_app.py` and create a GraalPy context with `GraalPyResources`.
-6. Keep the Python module under `src/main/resources/python/`.
+6. Keep the Python module under `src/main/resources/org.graalvm.python.vfs/src/`.
 7. Return a small JSON string from Python and map it into a Java record.
 8. Render the preview, score, label, emoji, and raw JSON in the browser.
 9. Keep a single clear action that resets both the file input and the visible output.
 10. Keep the direct Java -> GraalPy script -> VADER path obvious in the code.
+11. Preserve the embedded Python DAP attach path for debugging the manual Java -> GraalPy boundary.
 
 # Similar-Example Rules
 
@@ -35,6 +37,10 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 - Keep the script loaded from `classpath:org.graalvm.python.vfs/src/sentiment_app.py` and evaluated from Java so the manual embedding path stays easy to explain.
 - Keep the function lookup explicit through Python bindings and guard that the returned member is executable.
 - Return JSON from Python and deserialize it into a small `@Serdeable` record on the Java side.
+- Keep the script as a URL-backed GraalVM `Source` so DAP can associate execution with the resource path.
+- Keep `org.graalvm.tools:dap-tool` aligned with `${graalpy.version}` when embedded Python debugging is enabled.
+- Keep the DAP endpoint simple and local: `dap=localhost:4711`, `dap.Suspend=true`, and `dap.WaitAttached=true`.
+- Keep `.vscode/launch.json` available for the `GraalPy: Attach embedded` debug configuration.
 - Keep the browser preview client-side after upload selection. Do not bloat the backend response by echoing the uploaded review text or extra status text when the UI already has that information.
 - Keep `pom.xml` lean. Keep explicit `org.graalvm.python:python`, `org.graalvm.python:python-embedding`, and the `graalpy-maven-plugin`.
 - Keep the `maven-shade-plugin` executable JAR configuration in `pom.xml`. Preserve merged service resources and the `Multi-Release: true` manifest entry so GraalPy and Truffle initialize correctly in the shaded jar.
@@ -58,6 +64,7 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 - `src/main/resources/public/index.html`
 - `src/main/resources/public/app.js`
 - `src/main/resources/public/styles.css`
+- `.vscode/launch.json`
 - `src/test/java/graalpy/demo/GraalPySentimentServiceTest.java`
 - `src/test/java/graalpy/demo/ReviewControllerTest.java`
 - `samples/`
@@ -83,6 +90,14 @@ sdk use java 25.0.2-graal
 Open `http://localhost:8080`.
 
 The first build needs network access so Maven and GraalPy can resolve dependencies and install the pinned VADER package.
+
+Debug embedded Python:
+
+```bash
+./mvnw mn:run
+```
+
+Open `http://localhost:8080`, upload a sample file, and attach with the VS Code `GraalPy: Attach embedded` configuration on `localhost:4711`.
 
 Executable jar:
 
@@ -131,6 +146,7 @@ sdk use java 25.0.2-graal
 
 - The sample stays small enough to explain in a few minutes.
 - The Java -> GraalPy script -> VADER story is obvious in the code.
+- The embedded Python DAP attach story remains easy to demonstrate when debugging is enabled.
 - The browser upload flow remains the main proof path.
 - The UI shows the decoded text, label, score, JSON, emoji, and clear reset behavior.
 - The sample can also be packaged and run as an executable jar with `java -jar`.
