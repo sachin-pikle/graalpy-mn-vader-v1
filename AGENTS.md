@@ -6,11 +6,11 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 
 - Artifact and app name: `graalpy-mn-vader-v1`
 - Version label: `v1`
-- Framework: Micronaut 4.10.11
+- Framework: Micronaut 4.10.14
 - Java target: 25
-- Preferred local runtime: `sdk use java 25.0.2-graal`
-- GraalPy runtime and embedding API: 25.0.2
-- GraalVM DAP tool: 25.0.2
+- Preferred local runtime: `sdk use java 25.0.3-graal`
+- GraalPy runtime and embedding API: 25.0.3
+- GraalVM DAP tool: 25.0.3
 - Python package: `vaderSentiment==3.3.2`
 - UI shape: one static page with upload, preview, sentiment card, raw JSON, and a clear button
 - Bundled sample inputs: five short text files under `samples/`
@@ -77,11 +77,11 @@ Keep this repo aligned with the current sample: a very small Micronaut app that 
 # Run Commands
 
 ```bash
-sdk install java 25.0.2-graal
+sdk install java 25.0.3-graal
 ```
 
 ```bash
-sdk use java 25.0.2-graal
+sdk use java 25.0.3-graal
 ```
 
 ```bash
@@ -118,18 +118,30 @@ Change `src/main/resources/application.properties` to:
 graalpy.dap.enabled=true
 ```
 
-Set a breakpoint in `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`, for example inside `analyze_review_json`.
-
 ```bash
 ./mvnw mn:run
 ```
 
-Open `http://localhost:8080`, upload a sample file, and attach with the VS Code `GraalPy: Attach embedded` configuration on `localhost:4711`. The debugger should stop at breakpoints in `sentiment_app.py`.
+Open `http://localhost:8080`, select a sample text file, and submit it. 
+
+The request will wait when the GraalPy context starts. You will see `[Graal DAP] Starting server and listening on localhost/127.0.0.1:4711` in the server output.
+
+In VS Code, run the `GraalPy: Attach embedded` launch configuration to attach to `localhost:4711`. 
+
+The loaded sources can be opened from the debugger panel to view the Python code as loaded from the Java resources. VSCode does not map them back to the files in the source tree, so you must open them from the "Loaded Scripts" section in the debug view e.g., `target/classes/org.graalvm.python.vfs/src/sentiment_app.py`. There, you can set breakpoints inside `analyze_review_json`. 
+
+Now, the debugger can stop at the designated breakpoints and you can inspect runtime state as expected.
+
+When done, don't forget to disable DAP:
+
+```properties
+graalpy.dap.enabled=false
+```
 
 Executable jar:
 
 ```bash
-sdk use java 25.0.2-graal
+sdk use java 25.0.3-graal
 ```
 
 ```bash
@@ -158,7 +170,7 @@ See the bundled Python module, embedded GraalPy virtual filesystem, and installe
 Native image:
 
 ```bash
-sdk use java 25.0.2-graal
+sdk use java 25.0.3-graal
 ```
 
 ```bash

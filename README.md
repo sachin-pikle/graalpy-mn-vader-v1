@@ -8,11 +8,11 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 
 ## Current Sample
 
-- Micronaut 4.10.11
+- Micronaut 4.10.14
 - Java 25 bytecode
-- Preferred local runtime: `sdk use java 25.0.2-graal`
-- GraalPy runtime and embedding API on 25.0.2
-- GraalVM DAP tool on 25.0.2 for embedded Python debugging
+- Preferred local runtime: `sdk use java 25.0.3-graal`
+- GraalPy runtime and embedding API on 25.0.3
+- GraalVM DAP tool on 25.0.3 for embedded Python debugging
 - Python dependency pinned to `vaderSentiment==3.3.2`
 - One static page with upload, preview, sentiment card, raw JSON, and a clear button
 
@@ -45,11 +45,11 @@ This sample uses the direct GraalPy embedding API through `GraalPyResources.cont
 ## Run Locally
 
 ```bash
-sdk install java 25.0.2-graal
+sdk install java 25.0.3-graal
 ```
 
 ```bash
-sdk use java 25.0.2-graal
+sdk use java 25.0.3-graal
 ```
 
 ```bash
@@ -90,20 +90,32 @@ Change `src/main/resources/application.properties` to:
 graalpy.dap.enabled=true
 ```
 
-Set a breakpoint in `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`, for example inside `analyze_review_json`.
-
 Start the app:
 
 ```bash
 ./mvnw mn:run
 ```
 
-Open `http://localhost:8080`, select a sample text file, and submit it. The request will wait when the GraalPy context starts. In VS Code, run the `GraalPy: Attach embedded` launch configuration to attach to `localhost:4711`. Once attached, the debugger can stop at breakpoints in `sentiment_app.py`.
+Open `http://localhost:8080`, select a sample text file, and submit it. 
+
+The request will wait when the GraalPy context starts. You will see `[Graal DAP] Starting server and listening on localhost/127.0.0.1:4711` in the server output.
+
+In VS Code, run the `GraalPy: Attach embedded` launch configuration to attach to `localhost:4711`. 
+
+The loaded sources can be opened from the debugger panel to view the Python code as loaded from the Java resources. VSCode does not map them back to the files in the source tree, so you must open them from the "Loaded Scripts" section in the debug view e.g., `target/classes/org.graalvm.python.vfs/src/sentiment_app.py`. There, you can set breakpoints inside `analyze_review_json`. 
+
+Now, the debugger can stop at the designated breakpoints and you can inspect runtime state as expected.
+
+When done, don't forget to disable DAP:
+
+```properties
+graalpy.dap.enabled=false
+```
 
 ## Executable Jar
 
 ```bash
-sdk use java 25.0.2-graal
+sdk use java 25.0.3-graal
 ```
 
 ```bash
@@ -132,7 +144,7 @@ See the bundled Python module, embedded GraalPy virtual filesystem, and installe
 ## Native Image
 
 ```bash
-sdk use java 25.0.2-graal
+sdk use java 25.0.3-graal
 ```
 
 ```bash
@@ -155,7 +167,7 @@ sdk use java 25.0.2-graal
 
 - This repo is the simpler manual-embedding variant; `v2` is the Micronaut annotation-based GraalPy variant.
 - `v1` uses direct GraalPy embedding with `GraalPyResources` plus explicit `org.graalvm.python:python` and `org.graalvm.python:python-embedding`; `v2` uses `io.micronaut.graal-languages:micronaut-graalpy` and an injected `@GraalPyModule` interface.
-- `v1` runs on Micronaut 4.10.11, Java 25 bytecode, `sdk use java 25.0.2-graal`, and GraalPy 25.0.2; `v2` runs on Micronaut 4.10.10, Java 21 bytecode, `sdk use java 23-graal`, and GraalPy 24.2.1.
+- `v1` runs on Micronaut 4.10.14, Java 25 bytecode, `sdk use java 25.0.3-graal`, and GraalPy 25.0.3; `v2` runs on Micronaut 5.0.0-SNAPSHOT, Java 25 bytecode, `sdk use java 25.0.3-graal`, and GraalPy 25.0.3.
 - `v1` keeps the Python script at `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`; `v2` keeps it under `src/main/resources/org.graalvm.python.vfs/src/sentiment_app.py`.
 - `v1` manually evaluates the script and reads the function from Python bindings; `v2` calls the Python function through the injected `SentimentModule` and keeps `src/main/resources/META-INF/native-image/proxy-config.json` aligned with that interface.
 
